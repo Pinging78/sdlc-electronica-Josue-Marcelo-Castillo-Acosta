@@ -1,6 +1,4 @@
-from hola_sensor import Sensor
-
-
-def test_read_returns_23_5():
-    sensor = Sensor()
-    assert sensor.read() == 23.5
+from semana0.hola_sensor import Sensor
+ 
+def test_sensor_reads_value():
+    assert Sensor("TEMP-01").read() == 23.5
