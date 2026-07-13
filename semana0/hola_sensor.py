@@ -3,4 +3,8 @@ class Sensor:
         self.sensor_id = sensor_id
  
     def read(self) -> float:
+<<<<<<< HEAD
         return 23.5  # valor fijo por ahora; en la semana 3 sera una API real
+=======
+        return 23.5  # valor fijo por ahora; en la semana 3 sera una API real
+>>>>>>> 39958771975e62daaffab82f2cb66839b451c208
