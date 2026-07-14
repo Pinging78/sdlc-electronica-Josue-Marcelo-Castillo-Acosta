@@ -6,7 +6,8 @@ class SensorType(Enum): #se define una enumeración para los tipos de sensores
     TEMPERATURE = auto() #se define automaticamente el valor de TEMPERATURE
     HUMIDITY = auto() #se define automaticamente el valor de HUMIDITY
 
-@dataclass #se define una clase de datos para representar una lectura del sensor
+@dataclass(frozen=True) #una vez que se cree el objeto no se puede modificar los valores de sus atributos (inmutable)
+#si se modifica marcará error
 class Reading: #se define la clase de lectura del sensor
     sensor_id: str #se define el ID del sensor
     value: float #se define el valor de la lectura
@@ -27,21 +28,21 @@ def humedad_a_porcentaje(r: Reading): #se define la función que recibe un objet
     return replace(r, value=nuevo_valor) #retorna un nuevo objeto Reading con el valor convertido a porcentaje
 
 #3
-def alerta_temperatura_alta(r: Reading, umbral: float = 30.0) -> bool:
-    if r.sensor_type != SensorType.TEMPERATURE:
-        raise ValueError("Solo aplica a lecturas de temperatura")
-    return r.value > umbral
+def alerta_temperatura_alta(r: Reading, umbral: float = 30.0) -> bool: #se define el tipo reading y un umbral por defecto de 30.0°C
+    if r.sensor_type != SensorType.TEMPERATURE: #verifica si el sensor es de temperatura
+        raise ValueError("Solo aplica a lecturas de temperatura") #si no lo es manda este mensaje
+    return r.value > umbral #retorna true si es mayor al umbral y false si es menor o igual 
 
 #4
-def alerta_humedad_baja(r: Reading, umbral: float = 20.0) -> bool:
-    if r.sensor_type != SensorType.HUMIDITY:
+def alerta_humedad_baja(r: Reading, umbral: float = 20.0) -> bool: #se define el tipo reading y un umbral por defecto de 20.0%
+    if r.sensor_type != SensorType.HUMIDITY: #sensor tipo humedad
         raise ValueError("Solo aplica a lecturas de humedad")
-    return r.value < umbral
+    return r.value < umbral #retorna true si es menor al umbral y false si es mayor o igual
 
 #5
-def to_dict(r: Reading) -> dict[str, str | float]:
-    return {
+def to_dict(r: Reading) -> dict[str, str | float]: #se define tipo reading y retorna los valores en un diccionario con claves de tipo string
+    return { 
         "sensor_id": r.sensor_id,
         "value": r.value,
         "sensor_type": r.sensor_type.name,
-    }
+    } #retorna un diccionario con los datos del sensor
