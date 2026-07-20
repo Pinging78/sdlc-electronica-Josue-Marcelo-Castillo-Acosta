@@ -43,6 +43,8 @@ class ModbusParser(MessageParser): #frames modbus RTU
                 else:
                     crc >>= 1
         return crc.to_bytes(2, byteorder = "little")
+#algoritmo estándar de CRC-16 Modbus: agarra todos los bytes de data y los "mezcla" matemáticamente en un solo número de 16 bits
+#y si un solo bit cambia en el mensaje original, el resultado sale completamente distinto
 
 class NMEAParser(MessageParser):
     def can_parse(self, raw: bytes) -> bool: #llega el mensaje como bytes
@@ -57,6 +59,8 @@ class NMEAParser(MessageParser):
         if "*" not in texto: #revisa si hay un * y si si llama a _checksum_valido para verificarlo
             return False
         return self._checksum_valido(texto)
+#se convierten los bytes → str con .decode(), despues verifica 3 cosas en cadena: que sea texto válido, que empiece con $GPGGA, y que checksum (*) sea correcto
+
 
     def _checksum_valido(self, texto: str) ->  bool:
         cuerpo, checksum_recibido = texto[1:].split("*")
