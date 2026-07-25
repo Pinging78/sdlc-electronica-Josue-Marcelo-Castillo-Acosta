@@ -1,5 +1,6 @@
 from SensorRegistry import SensorRegistry
 
+
 #no tiene conflicto con la nueva clase 
 def test_registrar_sensor():
     registry = SensorRegistry()
