@@ -1,3 +1,4 @@
+#tests correspondientes a los escenarios del Sprint Goal
 from AnomalyDetector import AnomalyDetector, AnomalyThreshold
 
 
