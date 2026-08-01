@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db import Base
@@ -11,3 +13,4 @@ class Reading(Base):
     sensor_id: Mapped[int]
     value: Mapped[float]
     unit: Mapped[str]
+    timestamp: Mapped[datetime] = mapped_column(default=datetime.utcnow)

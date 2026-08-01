@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class MessageParser(ABC):
     @abstractmethod
     def can_parse(self, raw: bytes) -> bool: ...
