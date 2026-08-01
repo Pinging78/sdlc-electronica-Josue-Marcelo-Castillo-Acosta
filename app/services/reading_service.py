@@ -5,8 +5,8 @@ class ReadingService:
     def __init__(self, repository: ReadingRepository):
         self.repository = repository  #guarda el repositorio que le pasan, para usarlo despues
 
-    def list_readings(self):
-        return self.repository.get_all()  #solo delega al repositorio
+    def list_readings(self, skip: int = 0, limit: int = 10, sensor_id: int | None = None):
+        return self.repository.get_all(skip=skip, limit=limit, sensor_id=sensor_id)  #obtiene la lista de los sensores
 
     def register_reading(self, sensor_id: int, value: float, unit: str):
         return self.repository.create(sensor_id, value, unit)  # delega la creacion al repositorio
