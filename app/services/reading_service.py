@@ -11,3 +11,6 @@ class ReadingService:
     def register_reading(self, sensor_id: int, value: float, unit: str):
         return self.repository.create(sensor_id, value, unit)  # delega la creacion al repositorio
         #podriamos tener validaciones como por ejemplo: rechazar value negativo. pero de momento asi esta bien
+    
+    def remove_reading(self, reading_id: int):
+        return self.repository.delete(reading_id)
