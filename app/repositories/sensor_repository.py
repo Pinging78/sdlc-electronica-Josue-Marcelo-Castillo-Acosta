@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
+
 from app.models.sensor import Sensor
+
 
 #es la unica clase que habla con la base de datos
 class SensorRepository:

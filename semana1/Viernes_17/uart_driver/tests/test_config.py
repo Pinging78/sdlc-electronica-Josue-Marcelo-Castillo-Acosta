@@ -1,6 +1,8 @@
-import pytest
 from dataclasses import FrozenInstanceError
+
+import pytest
 from config import UartConfig
+
 
 def test_baudrate_invalido() -> None:
     """Verifica que UartConfig rechace un baudrate fuera de la lista

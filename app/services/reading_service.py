@@ -1,5 +1,6 @@
-from app.repositories.reading_repository import ReadingRepository
 from datetime import datetime
+
+from app.repositories.reading_repository import ReadingRepository
 
 UMBRALES = {
     "temperatura": 35,

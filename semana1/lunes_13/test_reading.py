@@ -1,4 +1,13 @@
-from reading import Reading, SensorType, celsius_to_fahrenheit, humedad_a_porcentaje, alerta_temperatura_alta, alerta_humedad_baja, to_dict
+from reading import (
+    Reading,
+    SensorType,
+    alerta_humedad_baja,
+    alerta_temperatura_alta,
+    celsius_to_fahrenheit,
+    humedad_a_porcentaje,
+    to_dict,
+)
+
 
 #1
 def test_celsius_to_fahrenheit(): #se define la función de prueba para convertir de Celsius a Fahrenheit

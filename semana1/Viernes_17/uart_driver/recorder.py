@@ -1,5 +1,6 @@
 import json
 
+
 class DataRecorder:
 
     def __init__(self, path: str) -> None:

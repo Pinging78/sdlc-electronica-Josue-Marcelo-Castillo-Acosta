@@ -1,5 +1,6 @@
 from app.repositories.sensor_repository import SensorRepository
 
+
 #esta la logica de negocio como reglas, validaciones o calculos
 class SensorService:
     def __init__(self, repository: SensorRepository):

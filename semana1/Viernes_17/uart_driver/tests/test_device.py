@@ -1,7 +1,7 @@
 import pytest
+from config import UartConfig
 from device import UartDevice
 from parsers import MessageParser
-from config import UartConfig
 
 
 class DummyParser(MessageParser):

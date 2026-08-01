@@ -1,6 +1,9 @@
-from sqlalchemy.orm import Session
-from app.models.reading import Reading
 from datetime import datetime
+
+from sqlalchemy.orm import Session
+
+from app.models.reading import Reading
+
 
 #es la unica clase que habla con la base de datos
 class ReadingRepository:

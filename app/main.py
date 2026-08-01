@@ -1,14 +1,15 @@
 #creacion de la api
-from fastapi import FastAPI, Depends
+from datetime import datetime
+
+from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
+
 from app.db import Base, engine, get_db
-from app.models.reading import Reading
 from app.repositories.reading_repository import ReadingRepository
 from app.repositories.sensor_repository import SensorRepository
+from app.schemas.reading import ReadingCreate
 from app.services.reading_service import ReadingService
 from app.services.sensor_service import SensorService
-from app.schemas.reading import ReadingCreate
-from datetime import datetime
 
 Base.metadata.create_all(bind=engine) #crea una tabla con este engine de esta base de datos
 
