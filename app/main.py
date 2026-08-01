@@ -8,6 +8,7 @@ from app.repositories.sensor_repository import SensorRepository
 from app.services.reading_service import ReadingService
 from app.services.sensor_service import SensorService
 from app.schemas.reading import ReadingCreate
+from datetime import datetime
 
 Base.metadata.create_all(bind=engine) #crea una tabla con este engine de esta base de datos
 
@@ -29,13 +30,17 @@ def readings(
     skip: int = 0,
     limit: int = 10,
     sensor_id: int | None = None,
+    fecha_inicio: datetime | None = None,
+    fecha_fin: datetime | None = None,
     service: ReadingService = Depends(get_reading_service)
 ):
-    return service.list_readings(skip=skip, limit=limit, sensor_id=sensor_id)
-
+    return service.list_readings(
+        skip=skip, limit=limit, sensor_id=sensor_id,
+        fecha_inicio=fecha_inicio, fecha_fin=fecha_fin
+    )
 @app.post("/readings")
 def create_reading(data: ReadingCreate, service: ReadingService = Depends(get_reading_service)):
-    return service.register_reading(data.sensor_id, data.value, data.unit)
+    return service.register_reading(data.sensor_id, data.value, data.unit, data.sensor_type)
 
 @app.delete("/readings/{reading_id}")
 def delete_reading(reading_id: int, service: ReadingService = Depends(get_reading_service)):
