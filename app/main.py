@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.db import Base, engine, get_db
 from app.repositories.reading_repository import ReadingRepository
 from app.repositories.sensor_repository import SensorRepository
-from app.schemas.reading import ReadingCreate
+from app.schemas.reading import ReadingCreate, ReadingUpdate
 from app.services.reading_service import ReadingService
 from app.services.sensor_service import SensorService
 
@@ -42,6 +42,14 @@ def readings(
 @app.post("/readings")
 def create_reading(data: ReadingCreate, service: ReadingService = Depends(get_reading_service)):
     return service.register_reading(data.sensor_id, data.value, data.unit, data.sensor_type)
+
+@app.get("/readings/{reading_id}")
+def get_reading(reading_id: int, service: ReadingService = Depends(get_reading_service)):
+    return service.get_reading(reading_id)
+
+@app.patch("/readings/{reading_id}")
+def update_reading(reading_id: int, data: ReadingUpdate, service: ReadingService = Depends(get_reading_service)):
+    return service.update_reading(reading_id, data.value, data.unit)
 
 @app.delete("/readings/{reading_id}")
 def delete_reading(reading_id: int, service: ReadingService = Depends(get_reading_service)):

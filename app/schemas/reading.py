@@ -28,3 +28,7 @@ class ReadingCreate(BaseModel):
         if rango and not (rango["min"] <= v <= rango["max"]):
             raise ValueError(f"value fuera de rango fisico para {sensor_type}")
         return v
+
+class ReadingUpdate(BaseModel):
+    value: float | None = None
+    unit: str | None = None

@@ -25,6 +25,12 @@ class ReadingService:
         fecha_inicio=fecha_inicio, fecha_fin=fecha_fin
     )  #obtiene la lista de los sensores
 
+    def get_reading(self, reading_id: int):
+        return self.repository.get_by_id(reading_id)
+
+    def update_reading(self, reading_id: int, value: float | None = None, unit: str | None = None):
+        return self.repository.update(reading_id, value, unit)
+
     def register_reading(self, sensor_id: int, value: float, unit: str, sensor_type: str):
         reading = self.repository.create(sensor_id, value, unit)  # delega la creacion al repositorio
         umbral = UMBRALES.get(sensor_type)
