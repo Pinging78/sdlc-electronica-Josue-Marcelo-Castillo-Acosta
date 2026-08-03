@@ -5,7 +5,6 @@
 #     BaseSensor: process_sensor(sensor: BaseSensor) funciona con cualquiera.
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-
 #abc y abstractmethod se usa para crear moldes o funciones que solo se pueden heredar
 #dataclass solo es para evitar el __init__ cuando una clase solo guarda datos
 

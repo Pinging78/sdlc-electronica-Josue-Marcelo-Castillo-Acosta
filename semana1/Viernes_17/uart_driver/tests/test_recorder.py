@@ -1,7 +1,5 @@
 import json
-
 from recorder import DataRecorder
-
 
 def test_save_escribe_json_valido_en_archivo(tmp_path) -> None:
     """Verifica que DataRecorder.save() escriba un JSON valido y

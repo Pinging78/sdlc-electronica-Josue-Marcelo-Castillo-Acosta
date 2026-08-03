@@ -1,7 +1,6 @@
 from config import UartConfig
 from parsers import MessageParser
 
-
 class UartDevice: #configuracion del dispositivo
     def __init__(self, config: UartConfig, parser: MessageParser) -> None:
         self._config = config

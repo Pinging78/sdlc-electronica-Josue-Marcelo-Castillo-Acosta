@@ -1,6 +1,5 @@
 from dataclasses import dataclass, replace
 from enum import Enum, auto
-
 #from typing import Protocol
 
 class SensorType(Enum): #se define una enumeración para los tipos de sensores
