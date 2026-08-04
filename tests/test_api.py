@@ -3,20 +3,20 @@ from app.main import app
 
 client = TestClient(app)
 
-def test_health():
+def test_health(client):
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json() == {"status": "active"}
 
-def test_create_sensor():
+def test_create_sensor(client):
     response = client.post("/sensors", params={"name": "sensor1", "type": "temperatura"})
     assert response.status_code == 200
 
-def test_get_sensors():
+def test_get_sensors(client):
     response = client.get("/sensors")
     assert response.status_code == 200
 
-def test_create_reading_valido():
+def test_create_reading_valido(client):
     response = client.post("/readings", json={
         "sensor_id": 1,
         "sensor_type": "temperatura",
@@ -25,7 +25,7 @@ def test_create_reading_valido():
     })
     assert response.status_code == 200
 
-def test_create_reading_invalido_unidad():
+def test_create_reading_invalido_unidad(client):
     response = client.post("/readings", json={
         "sensor_id": 1,
         "sensor_type": "temperatura",
@@ -34,7 +34,7 @@ def test_create_reading_invalido_unidad():
     })
     assert response.status_code == 422
 
-def test_create_reading_fuera_de_rango():
+def test_create_reading_fuera_de_rango(client):
     response = client.post("/readings", json={
         "sensor_id": 1,
         "sensor_type": "temperatura",
@@ -43,6 +43,6 @@ def test_create_reading_fuera_de_rango():
     })
     assert response.status_code == 422
 
-def test_get_readings():
+def test_get_readings(client):
     response = client.get("/readings")
     assert response.status_code == 200

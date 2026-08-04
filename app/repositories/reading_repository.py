@@ -28,6 +28,21 @@ class ReadingRepository:
             query = query.filter(Reading.timestamp <= fecha_fin)
         return query.offset(skip).limit(limit).all()
 
+    def get_by_id(self, reading_id: int):
+        return self.db.query(Reading).filter(Reading.id == reading_id).first()
+
+    def update(self, reading_id: int, value: float | None = None, unit: str | None = None):
+        reading = self.get_by_id(reading_id)
+        if reading is None:
+            return None
+        if value is not None:
+            reading.value = value
+        if unit is not None:
+            reading.unit = unit
+        self.db.commit()
+        self.db.refresh(reading)
+        return reading
+
     def create(self, sensor_id: int, value: float, unit: str):
         reading = Reading(sensor_id=sensor_id, value=value, unit=unit)  # crea el objeto (no guardado aun)
         self.db.add(reading)      #lo marca para insertar
