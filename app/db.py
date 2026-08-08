@@ -22,3 +22,4 @@ def get_db(): #para obtener la configuracion del db
         yield db #entrega la sesion db a quien la use
     finally:
         db.close() #cierra la base de datos
+        
