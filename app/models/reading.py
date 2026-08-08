@@ -1,7 +1,10 @@
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import ForeignKey
 from datetime import datetime
+
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
+
 from app.db import Base
+
 
 class Reading(Base):
     __tablename__ = "readings"
