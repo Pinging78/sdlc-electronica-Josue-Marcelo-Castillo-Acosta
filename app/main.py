@@ -22,6 +22,13 @@ def get_sensor_service(db: Session = Depends(get_db)):
     return SensorService(SensorRepository(db))
 
 #/health ruta o url del endpoint
+@app.get("/")
+def root():
+    return {
+        "message": "Welcome to the Sensor API!",
+        "docs_url": "/docs"
+    }
+
 @app.get("/health") #cuando hagan la peticion get a esta ruta
 def health():
     return {"status": "active"} #ejecuta esto
