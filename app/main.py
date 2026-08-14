@@ -1,7 +1,7 @@
 #creacion de la api
 from datetime import datetime
 
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
 from app.db import Base, engine, get_db
@@ -76,4 +76,7 @@ def create_sensor(name: str, type: str, service: SensorService = Depends(get_sen
 
 @app.delete("/sensors/{sensor_id}")
 def delete_sensor(sensor_id: int, service: SensorService = Depends(get_sensor_service)):
-    return service.remove_sensor(sensor_id)
+    try:
+        return service.remove_sensor(sensor_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))

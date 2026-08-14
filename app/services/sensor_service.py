@@ -10,10 +10,16 @@ class SensorService:
         return self.repository.get_all(skip=skip, limit=limit)  #obtiene la lista de los sensores
 
     def get_sensor(self, sensor_id: int):
-        return self.repository.get_by_id(sensor_id)
+        sensor = self.repository.get_by_id(sensor_id)
+        if sensor is None:
+            raise ValueError(f"Sensor with ID {sensor_id} not found.")
+        return sensor
 
     def register_sensor(self, name: str, type: str):
         return self.repository.create(name, type)
 
     def remove_sensor(self, sensor_id: int):
+        sensor = self.repository.get_by_id(sensor_id)
+        if sensor is None:
+            raise ValueError(f"Sensor with ID {sensor_id} not found.")
         return self.repository.delete(sensor_id)
