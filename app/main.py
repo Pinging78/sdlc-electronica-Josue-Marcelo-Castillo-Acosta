@@ -70,6 +70,13 @@ def sensors(
 ):
     return service.list_sensors(skip=skip, limit=limit)
 
+@app.get("/sensors/{sensor_id}")
+def get_sensor(sensor_id: int, service: SensorService = Depends(get_sensor_service)):
+    try:
+        return service.get_sensor(sensor_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
 @app.post("/sensors")
 def create_sensor(name: str, type: str, service: SensorService = Depends(get_sensor_service)):
     return service.register_sensor(name, type)
