@@ -1,6 +1,10 @@
 # test OCP
 
-from app.services.alert_manager import AlertManager, ConsoleAlertStrategy, FileAlertStrategy
+from app.services.alert_manager import (
+    AlertManager,
+    ConsoleAlertStrategy,
+    FileAlertStrategy,
+)
 
 
 def test_console_strategy_registra_en_consola(capsys):

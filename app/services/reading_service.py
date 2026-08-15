@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from app.repositories.reading_repository import ReadingRepository
-from app.services.anomaly_detector import AnomalyDetector
 from app.services.alert_manager import AlertManager
+from app.services.anomaly_detector import AnomalyDetector
 
 UMBRALES = {
     "temperatura": 35,
