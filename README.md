@@ -6,3 +6,5 @@
 ## API desplegada
 - Swagger: https://sensorhub-api7821.onrender.com/docs
 - Health check: https://sensorhub-api7821.onrender.com/health
+
+ola
