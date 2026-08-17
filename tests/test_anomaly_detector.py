@@ -1,5 +1,6 @@
 from app.services.anomaly_detector import AnomalyDetector
 
+
 def test_temperatura_dentro_de_rango_no_es_anomalia():
     detector = AnomalyDetector()
     assert detector.es_anomalia("temperatura", 30) is False

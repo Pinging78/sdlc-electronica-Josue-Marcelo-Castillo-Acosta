@@ -1,8 +1,9 @@
 # tests/test_reading_service_anomalias.py
 
 from unittest.mock import MagicMock
-from app.services.reading_service import ReadingService
+
 from app.services.alert_manager import AlertManager
+from app.services.reading_service import ReadingService
 
 
 def test_registrar_reading_normal_no_genera_alerta():
