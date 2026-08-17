@@ -5,8 +5,6 @@ from app.services.alert_manager import AlertManager
 from app.services.anomaly_detector import UMBRALES, AnomalyDetector
 
 
-
-
 #esta la logica de negocio como reglas, validaciones o calculos
 class ReadingService:
     def __init__(self, repository: ReadingRepository, alert_manager: AlertManager | None = None):

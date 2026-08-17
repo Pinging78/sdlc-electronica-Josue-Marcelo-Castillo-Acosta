@@ -1,6 +1,7 @@
 import pytest
 from SensorReading import SensorReading
 
+
 def test_temperatura_invalida_lanza_error():
     with pytest.raises(ValueError): #espera que mande un error y lo manda si pasa el test, si no lo manda o es otro falla el test
         SensorReading(sensor_id="S1", temperatura="no-numero", humedad=60.0)

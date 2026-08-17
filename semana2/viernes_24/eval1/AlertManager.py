@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class AlertStrategy(ABC):
     @abstractmethod #todas las clases deben de contar con esto
     def enviar(self, mensaje: str) -> None:

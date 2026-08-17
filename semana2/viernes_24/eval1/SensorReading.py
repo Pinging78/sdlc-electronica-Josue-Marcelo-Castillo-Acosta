@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass #genera automaticamente el __init__
 class SensorReading: 
     sensor_id: str

@@ -1,5 +1,6 @@
 from AlertManager import AlertManager, ConsoleAlertStrategy, FileAlertStrategy
 
+
 def test_enviar_alerta_por_consola(capsys): #capsys captura lo que imprime en la consola y lo verifica
     strategy = ConsoleAlertStrategy()
     manager = AlertManager(strategy)
