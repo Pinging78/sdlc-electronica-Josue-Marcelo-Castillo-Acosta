@@ -24,7 +24,7 @@ class FileAlertStrategy(AlertStrategy):
 class AlertManager:
     def __init__(self, strategy: AlertStrategy | None = None):
         self.strategy = strategy or ConsoleAlertStrategy()
-        self.alertas = []
+        self.alertas: list[str] = []
 
     def notificar(self, mensaje: str) -> None:
         self.alertas.append(mensaje)

@@ -1,11 +1,10 @@
-
 from app.services.anomaly_detector import AnomalyDetector
 
 
 def test_temperatura_dentro_de_rango_no_es_anomalia():
     detector = AnomalyDetector()
     assert detector.es_anomalia("temperatura", 30) is False
-    #si la anomalia no sobrepasa el umbral no es una anomalia
+    #si el valor no sobrepasa el umbral no es una anomalia
 
 
 def test_temperatura_supera_umbral_es_anomalia():
@@ -23,4 +22,4 @@ def test_humedad_supera_umbral_es_anomalia():
 def test_tipo_sensor_desconocido_no_es_anomalia():
     detector = AnomalyDetector()
     assert detector.es_anomalia("presion", 999) is False
-    #cualquier otro tipo de sensor es una anomalia
+    #tipo de sensor desconocido: no se evalua como anomalia, se ignora en silencio
