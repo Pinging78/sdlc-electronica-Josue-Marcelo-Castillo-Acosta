@@ -1,13 +1,9 @@
 from datetime import datetime
 
 from app.repositories.reading_repository import ReadingRepository
-from app.services.anomaly_detector import AnomalyDetector
 from app.services.alert_manager import AlertManager
+from app.services.anomaly_detector import UMBRALES, AnomalyDetector
 
-UMBRALES = {
-    "temperatura": 35,
-    "humedad": 80,
-}
 
 #esta la logica de negocio como reglas, validaciones o calculos
 class ReadingService:
