@@ -2,7 +2,7 @@ from datetime import datetime
 
 from app.repositories.reading_repository import ReadingRepository
 from app.services.alert_manager import AlertManager
-from app.services.anomaly_detector import UMBRALES, AnomalyDetector
+from app.services.anomaly_detector import UMBRALES, AnomalyDetector, Nivel
 
 
 #esta la logica de negocio como reglas, validaciones o calculos
@@ -33,10 +33,12 @@ class ReadingService:
 
     def register_reading(self, sensor_id: int, value: float, unit: str, sensor_type: str):
         reading = self.repository.create(sensor_id, value, unit)  # delega la creacion al repositorio
-        if self.detector.es_anomalia(sensor_type, value):
-            umbral = UMBRALES.get(sensor_type)
+        nivel = self.detector.evaluar(sensor_type, value)
+        if nivel != Nivel.OK:
+            umbral = UMBRALES.get(sensor_type, {}).get(nivel.value.lower())
             self.alert_manager.notificar(
-                f"ALERTA: sensor {sensor_id} ({sensor_type}) reporto {value}{unit}, supera umbral de {umbral}"
+                f"ALERTA [{nivel.value}]: sensor {sensor_id} ({sensor_type}) reporto {value}{unit}, "
+                f"supera umbral de {umbral}"
             )
         return reading
 
