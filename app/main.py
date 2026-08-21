@@ -1,4 +1,6 @@
 #creacion de la api
+import os
+import subprocess
 from datetime import datetime
 
 from fastapi import Depends, FastAPI, HTTPException, Request
@@ -6,7 +8,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.db import Base, engine, get_db
+from app.db import get_db
 from app.logging_config import logger
 from app.repositories.reading_repository import ReadingRepository
 from app.repositories.sensor_repository import SensorRepository
@@ -14,7 +16,23 @@ from app.schemas.reading import ReadingCreate, ReadingUpdate
 from app.services.reading_service import ReadingService
 from app.services.sensor_service import SensorService
 
-Base.metadata.create_all(bind=engine) #crea una tabla con este engine de esta base de datos
+
+def run_migrations() -> None:
+    # aplica migraciones pendientes de Alembic al arrancar, en vez de create_all()
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    result = subprocess.run(
+        ["alembic", "upgrade", "head"],
+        cwd=project_root,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        logger.error(f"Fallo alembic upgrade head: {result.stderr}")
+        raise RuntimeError(f"No se pudieron aplicar migraciones: {result.stderr}")
+    logger.info("Migraciones de Alembic aplicadas correctamente")
+
+
+run_migrations()
 
 app = FastAPI() #app es la instancia fastapi
 
