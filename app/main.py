@@ -1,10 +1,13 @@
 #creacion de la api
 from datetime import datetime
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi.responses import JSONResponse
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.db import Base, engine, get_db
+from app.logging_config import logger
 from app.repositories.reading_repository import ReadingRepository
 from app.repositories.sensor_repository import SensorRepository
 from app.schemas.reading import ReadingCreate, ReadingUpdate
@@ -14,6 +17,16 @@ from app.services.sensor_service import SensorService
 Base.metadata.create_all(bind=engine) #crea una tabla con este engine de esta base de datos
 
 app = FastAPI() #app es la instancia fastapi
+
+
+@app.exception_handler(Exception)
+async def unhandled_exception_handler(request: Request, exc: Exception):
+    # atrapa cualquier error no manejado para no exponer tracebacks internos al cliente
+    logger.error(f"Error no manejado en {request.method} {request.url.path}: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Ocurrio un error interno, intenta de nuevo mas tarde."},
+    )
 
 def get_reading_service(db: Session = Depends(get_db)):
     return ReadingService(ReadingRepository(db))
@@ -30,8 +43,14 @@ def root():
     }
 
 @app.get("/health") #cuando hagan la peticion get a esta ruta
-def health():
-    return {"status": "active"} #ejecuta esto
+def health(db: Session = Depends(get_db)):
+    try:
+        db.execute(text("SELECT 1"))
+        db_status = "ok"
+    except Exception as e:
+        logger.error(f"Healthcheck: fallo conexion a BD: {e}")
+        db_status = "error"
+    return {"status": "active", "database": db_status}
 
 @app.get("/readings")
 def readings(
@@ -48,6 +67,7 @@ def readings(
     )
 @app.post("/readings")
 def create_reading(data: ReadingCreate, service: ReadingService = Depends(get_reading_service)):
+    logger.info(f"Registrando lectura: sensor_id={data.sensor_id} tipo={data.sensor_type} value={data.value}")
     return service.register_reading(data.sensor_id, data.value, data.unit, data.sensor_type)
 
 @app.get("/readings/{reading_id}")
