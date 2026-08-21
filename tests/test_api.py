@@ -7,7 +7,7 @@ client = TestClient(app)
 def test_health(client):
     response = client.get("/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "active"}
+    assert response.json() == {"status": "active", "database": "ok"}
 
 def test_create_sensor(client):
     response = client.post("/sensors", params={"name": "sensor1", "type": "temperatura"})
